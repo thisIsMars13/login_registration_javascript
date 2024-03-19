@@ -23,6 +23,7 @@ pipeline {
                     Integer port = 3000
                     String directory = "/var/www/login_registration_javascript"
                     String staging_env = "staging_env"
+                  // test
 
                     echo "port is ${port}"
                     echo "directory is ${directory}"
