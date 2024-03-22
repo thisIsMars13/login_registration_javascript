@@ -48,7 +48,7 @@ pipeline {
                     //     sshCommand remote: remote, command: "sudo mv /var/www/tmp_server_files/sample.env.yml ${directory}/configs/"
 
                       //sadsdasd
-                    }
+                    // }
   
                     echo "port is ${port}"
                     echo "directory is ${directory}"
