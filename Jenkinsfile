@@ -8,7 +8,7 @@ void setBuildStatus(String message, String state) {
   ]);
 } 
 
-applicationIPAddress= "47.128.147.236"
+applicationIPAddress= "13.251.34.29"
 sourceBranch = ghprbSourceBranch
 targetBranch = ghprbTargetBranch
 
