@@ -37,7 +37,7 @@ pipeline {
                         echo "Fetch branch and checkout to change branch"
                         sshCommand remote: remote, command: "cd ${directory} && sudo git fetch"
                         sshCommand remote: remote, command: "cd ${directory} && sudo forever stopall"
-                        sshCommand remote: remote, command: "cd ${directory} && sudo git merge ${sourceBranch}"
+                        sshCommand remote: remote, command: "cd ${directory} && sudo git merge jg-login/${sourceBranch}"
                         sshCommand remote: remote, command: "cd ${directory} && sudo forever start app.js"
                     }
                      echo "This should be running"
