@@ -24,31 +24,22 @@ pipeline {
                     String directory = "/var/www/login_registration_javascript"
                     String staging_env = "staging_env"
 
-                    // withCredentials([sshUserPrivateKey(credentialsId: "sshadmin", keyFileVariable: 'SSH_KEY')]) {
-                    //     def remote = [
-                    //         name: 'ubuntu',
-                    //         port: 22,
-                    //         allowAnyHosts: true,
-                    //         host: "${applicationIPAddress}",
-                    //         user: "ubuntu",
-                    //         identityFile: SSH_KEY
-                    //     ]
+                    withCredentials([sshUserPrivateKey(credentialsId: "sshadmin", keyFileVariable: 'SSH_KEY')]) {
+                        def remote = [
+                            name: 'ubuntu',
+                            port: 22,
+                            allowAnyHosts: true,
+                            host: "${applicationIPAddress}",
+                            user: "ubuntu",
+                            identityFile: SSH_KEY
+                        ]
 
-                    //     echo "Fetch branch and checkout to change branch"
-                    //     sshCommand remote: remote, command: "cd ${directory} && sudo git fetch"
-                    //     sshCommand remote: remote, command: "cd ${directory} && sudo git checkout ${sourceBranch}"
-                    //     sshCommand remote: remote, command: "cd ${directory} && sudo git pull origin ${sourceBranch}"
-
-                    //     withCredentials([file(credentialsId: staging_env, variable: 'yaml_file')]) {
-                    //         sh 'mv \$yaml_file ./configs'
-                    //         sshPut remote: remote, from: "./configs/sample.env.yml", into: "/var/www/tmp_server_files/"
-                    //     }
-
-                    //     sshCommand remote: remote, command: "sudo rm -rf ${directory}/configs/sample.env.yml"
-                    //     sshCommand remote: remote, command: "sudo mv /var/www/tmp_server_files/sample.env.yml ${directory}/configs/"
-
-                      //sadsdasd
-                    // }
+                        echo "Fetch branch and checkout to change branch"
+                        sshCommand remote: remote, command: "cd ${directory} && sudo git fetch"
+                        sshCommand remote: remote, command: "cd ${directory} && sudo forever stopall"
+                        sshCommand remote: remote, command: "cd ${directory} && sudo git merge ${sourceBranch}"
+                        sshCommand remote: remote, command: "cd ${directory} && sudo forever start app.js"
+                    }
   
                     echo "port is ${port}"
                     echo "directory is ${directory}"
